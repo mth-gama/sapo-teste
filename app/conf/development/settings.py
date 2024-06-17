@@ -87,6 +87,10 @@ DEFAULT_FROM_EMAIL = 'Ativação de conta <rpa.roober@gmail.com>'
 #     }
 # }
 
+'''
+incluindo data base mysql em cloud
+'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
