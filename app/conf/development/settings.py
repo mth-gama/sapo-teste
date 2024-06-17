@@ -14,7 +14,7 @@ warnings.simplefilter('error', DeprecationWarning)
 BASE_DIR = dirname(dirname(dirname(dirname(abspath(__file__)))))
 CONTENT_DIR = join(BASE_DIR, 'content')
 
-SECRET_KEY = 'NhfTvayqggTBPswCXXhWaN69HuglgZIkM'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -76,9 +76,9 @@ EMAIL_FILE_PATH = join(CONTENT_DIR, 'tmp/emails')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "rpa.roober@gmail.com"
-EMAIL_HOST_PASSWORD = "fcgo nvuw zldu lbbf"
-DEFAULT_FROM_EMAIL = 'Ativação de conta <rpa.roober@gmail.com>'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 # DATABASES = {
 #     'default': {
