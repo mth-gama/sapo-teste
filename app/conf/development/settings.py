@@ -16,8 +16,8 @@ CONTENT_DIR = join(BASE_DIR, 'content')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = False
-ALLOWED_HOSTS = ['sapo-teste-3ba4f15c8f80.herokuapp.com']
+DEBUG = True
+ALLOWED_HOSTS = []
 
 SITE_ID = 1
 

@@ -1,16 +1,23 @@
+import os 
+import warnings
 from os.path import dirname, abspath, join
 
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
+
+
+
+load_dotenv()
+
+warnings.simplefilter('error', DeprecationWarning)
 
 BASE_DIR = dirname(dirname(dirname(dirname(abspath(__file__)))))
 CONTENT_DIR = join(BASE_DIR, 'content')
 
-SECRET_KEY = '3d305kajG5Jy8KBafCMpHwDIsNi0SqVaW'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
-ALLOWED_HOSTS = [
-    'example.com',
-]
+ALLOWED_HOSTS = ['sapo-teste-3ba4f15c8f80.herokuapp.com']
 
 SITE_ID = 1
 
@@ -21,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    
     # Vendor apps
     'bootstrap4',
 
@@ -64,19 +72,33 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_FILE_PATH = join(CONTENT_DIR, 'tmp/emails')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
-EMAIL_HOST = ''
-EMAIL_HOST_USER = ''
-DEFAULT_FROM_EMAIL = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 465
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+'''
+incluindo data base mysql em cloud
+'''
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DATABASE_NAME', 'your_db_name'),
+        'USER': os.getenv('DATABASE_USER', 'your_db_user'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'your_db_password'),
+        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+        'PORT': os.getenv('DATABASE_PORT', '3306'),
     }
 }
 
@@ -101,21 +123,26 @@ LOGIN_VIA_EMAIL = False
 LOGIN_VIA_EMAIL_OR_USERNAME = True
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'accounts:log_in'
-USE_REMEMBER_ME = False
+USE_REMEMBER_ME = True
 
 RESTORE_PASSWORD_VIA_EMAIL_OR_USERNAME = True
-EMAIL_ACTIVATION_AFTER_CHANGING = True
+ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = True
+
+SIGN_UP_FIELDS = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+if DISABLE_USERNAME:
+    SIGN_UP_FIELDS = ['first_name', 'last_name', 'email', 'password1', 'password2']
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 USE_I18N = True
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'pt-br'
 LANGUAGES = [
     ('en', _('English')),
     ('ru', _('Russian')),
     ('zh-Hans', _('Simplified Chinese')),
     ('fr', _('French')),
     ('es', _('Spanish')),
+    ('pt-br', _('Portuguese (Brazil)')),
 ]
 
 TIME_ZONE = 'UTC'
@@ -135,8 +162,7 @@ LOCALE_PATHS = [
     join(CONTENT_DIR, 'locale')
 ]
 
-SIGN_UP_FIELDS = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
-if DISABLE_USERNAME:
-    SIGN_UP_FIELDS = ['first_name', 'last_name', 'email', 'password1', 'password2']
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# AUTH_USER_MODEL='email'
