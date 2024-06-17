@@ -17,7 +17,7 @@ CONTENT_DIR = join(BASE_DIR, 'content')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
 
 SITE_ID = 1
 
