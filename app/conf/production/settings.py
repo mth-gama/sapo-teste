@@ -93,14 +93,11 @@ incluindo data base mysql em cloud
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DATABASE_NAME', 'your_db_name'),
-        'USER': os.getenv('DATABASE_USER', 'your_db_user'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'your_db_password'),
-        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
-        'PORT': os.getenv('DATABASE_PORT', '3306'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
