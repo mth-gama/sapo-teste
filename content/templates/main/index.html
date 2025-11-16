@@ -7,9 +7,10 @@
 </style>
 <div class="container text-center">
 	<div>
-		<img src="https://www.sapo.pt/pt/img/logo_sharing.png" width="100" alt="capa_noticia" />
+		<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.mtNcTiH-eJzwVlNQMKJxWQHaEK%3Fcb%3Ducfimg2%26pid%3DApi%26ucfimg%3D1&f=1&ipt=95272f647399792f9e631f2b71cb57ecfcaaa9842c37d7cd4221f122562693ca" alt="capa_noticia" />
 	</div>
-	{% if request.user.is_authenticated %} <div class="alert alert-success" role="alert">
+	{% if request.user.is_authenticated %} 
+	<div class="alert alert-success" style="margin-top: 13px;" role="alert">
 		{% trans 'Your username is' %} <b>{{ request.user.username }}</b>. 
 	  </div>{% else %}
 	<div class="alert alert-primary" role="alert">{% trans 'You are a guest.' %}</div>
