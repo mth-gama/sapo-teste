@@ -1,30 +1,27 @@
-# Base Python
 FROM python:3.12-slim
 
-# Evita problemas de buffer no log
 ENV PYTHONUNBUFFERED=1
-
-# Cria diretório da app
 WORKDIR /app
 
-# Instala dependências de sistema
+# Dependências básicas
 RUN apt-get update && apt-get install -y \
     build-essential \
-    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copia requirements primeiro (melhor cache)
-COPY requirements.txt /app/
+# Instala pacotes Python
+COPY requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-# Instala dependências Python
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Copia o restante do projeto
+COPY . .
 
-# Copia tudo
-COPY . /app/
-
-# Expõe porta do Gunicorn
+# Porta da aplicação
 EXPOSE 8000
 
-# Comando padrão para rodar a aplicação
-CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Roda migrations e inicia o servidor
+CMD ["bash", "-c", "\
+    python manage.py makemigrations --noinput && \
+    python manage.py migrate --noinput && \
+    gunicorn app.wsgi:application --bind 0.0.0.0:8000 \
+"]
