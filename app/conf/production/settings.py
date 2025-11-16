@@ -16,8 +16,8 @@ CONTENT_DIR = join(BASE_DIR, 'content')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = False
-ALLOWED_HOSTS = ['sapo-teste-3ba4f15c8f80.herokuapp.com']
+DEBUG = True
+ALLOWED_HOSTS = []
 
 SITE_ID = 1
 
@@ -80,17 +80,6 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-'''
-incluindo data base mysql em cloud
-'''
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -98,6 +87,20 @@ DATABASES = {
     }
 }
 
+'''
+incluindo data base mysql em cloud
+'''
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.getenv('DATABASE_NAME', 'your_db_name'),
+#         'USER': os.getenv('DATABASE_USER', 'your_db_user'),
+#         'PASSWORD': os.getenv('DATABASE_PASSWORD', 'your_db_password'),
+#         'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+#         'PORT': os.getenv('DATABASE_PORT', '3306'),
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
